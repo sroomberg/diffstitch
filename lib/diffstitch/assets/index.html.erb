@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,26 +9,26 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="d-flex flex-column vh-100 overflow-hidden">
-  <header class="d-flex align-items-center gap-3 px-3 py-2 border-bottom flex-shrink-0">
+  <header class="topnav d-flex align-items-center gap-3 px-3 py-2 flex-shrink-0">
     <h1 class="fs-6 fw-semibold font-monospace text-truncate flex-fill mb-0" id="page-title"></h1>
     <div class="d-flex align-items-center gap-2 flex-shrink-0">
-      <label for="branch-select" class="form-label small text-secondary text-uppercase mb-0 fw-semibold" style="letter-spacing:.05em">Branch</label>
-      <select id="branch-select" class="form-select form-select-sm font-monospace" style="width:auto"></select>
+      <label for="branch-select" class="mb-0 small fw-semibold text-uppercase" style="color:#8b949e;letter-spacing:.06em">Branch</label>
+      <select id="branch-select" class="branch-select form-select form-select-sm font-monospace" style="width:auto"></select>
     </div>
   </header>
 
   <div class="d-flex flex-fill overflow-hidden">
-    <div class="d-flex flex-column flex-fill overflow-hidden border-end">
-      <div class="d-flex align-items-center gap-2 px-3 border-bottom flex-shrink-0 panel-header">
-        <span class="font-monospace fw-semibold text-primary" id="base-label"></span>
-        <span class="badge text-bg-secondary fw-normal">base</span>
+    <div class="d-flex flex-column flex-fill overflow-hidden panel-left">
+      <div class="d-flex align-items-center gap-2 panel-header">
+        <span class="font-monospace fw-semibold" id="base-label"></span>
+        <span class="ds-badge">base</span>
       </div>
       <div class="flex-fill overflow-auto panel-content" id="left-content"></div>
     </div>
     <div class="d-flex flex-column flex-fill overflow-hidden">
-      <div class="d-flex align-items-center gap-2 px-3 border-bottom flex-shrink-0 panel-header">
-        <span class="font-monospace fw-semibold text-primary" id="branch-label"></span>
-        <span class="badge text-bg-secondary fw-normal">changes</span>
+      <div class="d-flex align-items-center gap-2 panel-header">
+        <span class="font-monospace fw-semibold" id="branch-label"></span>
+        <span class="ds-badge">changes</span>
       </div>
       <div class="flex-fill overflow-auto panel-content" id="right-content"></div>
     </div>

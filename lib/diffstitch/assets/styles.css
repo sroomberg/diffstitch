@@ -1,36 +1,118 @@
-/* Panel header height consistency */
-.panel-header { padding-top: .375rem; padding-bottom: .375rem; }
+/* ── Variables ──────────────────────────────────────────────────── */
+:root {
+  --gh-canvas:        #ffffff;
+  --gh-surface:       #f6f8fa;
+  --gh-border:        #d0d7de;
+  --gh-text:          #1f2328;
+  --gh-muted:         #57606a;
+  --gh-link:          #0969da;
+  --gh-nav-bg:        #24292f;
+  --gh-nav-border:    #30363d;
+  --gh-nav-text:      #f0f6fc;
 
-/* Empty state */
+  --gh-add-bg:        #e6ffec;
+  --gh-add-num-bg:    #abf2bc;
+  --gh-add-num-text:  #033a16;
+  --gh-add-num-border:#56d364;
+
+  --gh-del-bg:        #ffebe9;
+  --gh-del-num-bg:    rgba(255,129,130,.4);
+  --gh-del-num-text:  #82071e;
+  --gh-del-num-border:rgba(255,129,130,.6);
+
+  --gh-hunk-bg:       #ddf4ff;
+  --gh-hunk-text:     #0550ae;
+  --gh-hunk-border:   rgba(84,174,255,.3);
+
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* ── Page shell ─────────────────────────────────────────────────── */
+
+body { background: var(--gh-canvas); color: var(--gh-text); }
+
+/* ── Top nav (GitHub dark bar) ──────────────────────────────────── */
+
+.topnav {
+  background: var(--gh-nav-bg);
+  border-bottom: 1px solid var(--gh-nav-border);
+}
+
+.topnav h1 { color: var(--gh-nav-text); }
+
+.branch-select {
+  background-color: #21262d !important;
+  color: var(--gh-nav-text) !important;
+  border-color: #30363d !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238b949e' d='M1 1l5 5 5-5'/%3E%3C/svg%3E") !important;
+}
+
+.branch-select:focus {
+  border-color: #58a6ff !important;
+  box-shadow: 0 0 0 3px rgba(88,166,255,.25) !important;
+}
+
+/* ── Panel chrome ───────────────────────────────────────────────── */
+
+.panel-left { border-right: 1px solid var(--gh-border); }
+
+.panel-header {
+  padding: .375rem .875rem;
+  background: var(--gh-surface);
+  border-bottom: 1px solid var(--gh-border);
+  font-family: var(--mono);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.panel-header .fw-semibold { color: var(--gh-link); }
+
+.ds-badge {
+  display: inline-block;
+  padding: 1px 7px;
+  font-size: 11px;
+  font-family: var(--mono);
+  background: var(--gh-surface);
+  color: var(--gh-muted);
+  border: 1px solid var(--gh-border);
+  border-radius: 2em;
+}
+
+/* ── Empty state ────────────────────────────────────────────────── */
+
 .empty-state {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 200px;
-  font-family: var(--bs-font-monospace);
+  font-family: var(--mono);
+  font-size: 13px;
   font-style: italic;
-  color: var(--bs-secondary-color);
+  color: var(--gh-muted);
 }
 
-/* Scrollbar */
+/* ── Scrollbar ──────────────────────────────────────────────────── */
+
 .panel-content::-webkit-scrollbar { width: 8px; height: 8px; }
-.panel-content::-webkit-scrollbar-track { background: var(--bs-body-bg); }
-.panel-content::-webkit-scrollbar-thumb { background: var(--bs-border-color); border-radius: 4px; }
-.panel-content::-webkit-scrollbar-thumb:hover { background: var(--bs-secondary-color); }
+.panel-content::-webkit-scrollbar-track { background: var(--gh-canvas); }
+.panel-content::-webkit-scrollbar-thumb { background: var(--gh-border); border-radius: 4px; }
+.panel-content::-webkit-scrollbar-thumb:hover { background: var(--gh-muted); }
 
-/* ── diff2html overrides ─────────────────────────────────────────── */
+/* ── diff2html overrides ── GitHub colour palette ───────────────── */
 
-.panel-content .d2h-wrapper { background: transparent; }
+/* Strip diff2html's own borders/margins so our panel chrome takes over */
+.panel-content .d2h-wrapper { background: var(--gh-canvas); }
 
 .panel-content .d2h-file-wrapper {
   border: none;
-  border-bottom: 1px solid var(--bs-border-color);
+  border-bottom: 1px solid var(--gh-border);
   border-radius: 0;
   margin: 0;
-  background: var(--bs-body-bg);
+  background: var(--gh-canvas);
 }
 
-.panel-content .d2h-files-diff  { display: block !important; }
+/* Force single-column layout (we already split the two d2h sides ourselves) */
+.panel-content .d2h-files-diff   { display: block !important; }
 .panel-content .d2h-file-side-diff {
   width: 100% !important;
   display: block !important;
@@ -38,38 +120,94 @@
   float: none !important;
 }
 
+/* File header */
 .panel-content .d2h-file-header {
-  background: var(--bs-secondary-bg) !important;
-  border-bottom: 1px solid var(--bs-border-color) !important;
+  background: var(--gh-surface) !important;
+  border-bottom: 1px solid var(--gh-border) !important;
   border-radius: 0 !important;
   padding: 6px 14px !important;
 }
 
-.panel-content .d2h-file-name  { color: var(--bs-link-color) !important; font-size: 12px; }
-.panel-content .d2h-tag        { font-size: 11px !important; }
-.panel-content .d2h-code-wrapper { border: none; }
-
-.panel-content table.d2h-diff-table { width: 100%; font-size: 12px; }
-
-.panel-content .d2h-del,
-.panel-content td.d2h-del { background-color: #3d1f1f !important; }
-
-.panel-content .d2h-ins,
-.panel-content td.d2h-ins { background-color: #1a3a2a !important; }
-
-.panel-content .d2h-code-linenumber {
-  background: var(--bs-secondary-bg) !important;
-  border-right: 1px solid var(--bs-border-color) !important;
-  color: var(--bs-secondary-color) !important;
-  min-width: 40px;
-  width: 40px;
-  padding: 0 8px !important;
+.panel-content .d2h-file-name {
+  color: var(--gh-link) !important;
+  font-size: 12px;
+  font-family: var(--mono);
 }
 
-.panel-content .d2h-code-linenumber.d2h-del { background: #2d1b1b !important; }
-.panel-content .d2h-code-linenumber.d2h-ins { background: #1a2d22 !important; }
-.panel-content td.d2h-code-side-linenumber  { color: var(--bs-secondary-color) !important; }
+/* Added / removed tags (e.g. "+3 -1") */
+.panel-content .d2h-tag {
+  font-size: 11px !important;
+  border-radius: 2em !important;
+}
+.panel-content .d2h-added-tag {
+  background: var(--gh-add-bg) !important;
+  color: var(--gh-add-num-text) !important;
+  border: 1px solid var(--gh-add-num-border) !important;
+}
+.panel-content .d2h-deleted-tag {
+  background: var(--gh-del-bg) !important;
+  color: var(--gh-del-num-text) !important;
+  border: 1px solid rgba(255,129,130,.6) !important;
+}
+
+/* Code table */
+.panel-content .d2h-code-wrapper { border: none; }
+
+.panel-content table.d2h-diff-table {
+  width: 100%;
+  font-size: 12px;
+  font-family: var(--mono);
+  border-collapse: collapse;
+}
+
+/* Unchanged lines */
+.panel-content td.d2h-code-line,
+.panel-content td.d2h-code-side-line { background: var(--gh-canvas); }
+
+/* Deletions */
+.panel-content td.d2h-del { background: var(--gh-del-bg) !important; }
+.panel-content td.d2h-del .d2h-del { background: rgba(255,129,130,.4); border-radius: 2px; }
+
+/* Additions */
+.panel-content td.d2h-ins { background: var(--gh-add-bg) !important; }
+.panel-content td.d2h-ins .d2h-ins { background: rgba(171,242,188,.8); border-radius: 2px; }
+
+/* Line number gutter */
+.panel-content .d2h-code-linenumber,
+.panel-content td.d2h-code-side-linenumber {
+  background: var(--gh-surface) !important;
+  border-right: 1px solid var(--gh-border) !important;
+  color: var(--gh-muted) !important;
+  min-width: 44px;
+  width: 44px;
+  padding: 0 10px !important;
+  text-align: right;
+  user-select: none;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.panel-content .d2h-code-linenumber.d2h-del,
+.panel-content td.d2h-code-side-linenumber.d2h-del {
+  background: var(--gh-del-num-bg) !important;
+  border-right-color: var(--gh-del-num-border) !important;
+  color: var(--gh-del-num-text) !important;
+}
+
+.panel-content .d2h-code-linenumber.d2h-ins,
+.panel-content td.d2h-code-side-linenumber.d2h-ins {
+  background: var(--gh-add-num-bg) !important;
+  border-right-color: var(--gh-add-num-border) !important;
+  color: var(--gh-add-num-text) !important;
+}
+
+/* Hunk / context header */
+.panel-content td.d2h-info,
 .panel-content .d2h-info {
-  background: var(--bs-secondary-bg) !important;
-  color: var(--bs-secondary-color) !important;
+  background: var(--gh-hunk-bg) !important;
+  color: var(--gh-hunk-text) !important;
+  border-top: 1px solid var(--gh-hunk-border) !important;
+  border-bottom: 1px solid var(--gh-hunk-border) !important;
+  font-family: var(--mono);
+  font-size: 12px;
 }
