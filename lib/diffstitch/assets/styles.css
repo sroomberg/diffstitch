@@ -175,6 +175,9 @@ body { background: var(--gh-canvas); color: var(--gh-text); }
 /* Line number gutter */
 .panel-content .d2h-code-linenumber,
 .panel-content td.d2h-code-side-linenumber {
+  position: sticky;
+  left: 0;
+  z-index: 2;
   background: var(--gh-surface) !important;
   border-right: 1px solid var(--gh-border) !important;
   color: var(--gh-muted) !important;
@@ -192,6 +195,7 @@ body { background: var(--gh-canvas); color: var(--gh-text); }
   background: var(--gh-del-num-bg) !important;
   border-right-color: var(--gh-del-num-border) !important;
   color: var(--gh-del-num-text) !important;
+  z-index: 2;
 }
 
 .panel-content .d2h-code-linenumber.d2h-ins,
@@ -199,6 +203,7 @@ body { background: var(--gh-canvas); color: var(--gh-text); }
   background: var(--gh-add-num-bg) !important;
   border-right-color: var(--gh-add-num-border) !important;
   color: var(--gh-add-num-text) !important;
+  z-index: 2;
 }
 
 /* Hunk / context header */
