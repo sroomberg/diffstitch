@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
     'changelog_uri'   => "#{spec.homepage}/blob/main/CHANGELOG.md"
   }
 
-  spec.files         = Dir['lib/**/*', 'bin/*', '*.gemspec', 'Gemfile', 'CHANGELOG.md']
+  spec.files         = Dir['lib/**/*', 'bin/*', '*.gemspec', 'Gemfile', 'CHANGELOG.md', 'LICENSE']
   spec.bindir        = 'bin'
   spec.executables   = ['diffstitch']
   spec.require_paths = ['lib']
