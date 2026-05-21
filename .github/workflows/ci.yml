@@ -27,3 +27,6 @@ jobs:
 
       - name: Run tests
         run: bundle exec rspec
+
+      - name: Lint
+        run: bundle exec rubocop --no-color

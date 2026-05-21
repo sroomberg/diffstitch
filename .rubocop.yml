@@ -1,0 +1,40 @@
+require:
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  Exclude:
+    - "*.gemspec"
+    - "vendor/**/*"
+
+# CLI tool — inline docs add noise without a public API to document
+Style/Documentation:
+  Enabled: false
+
+# around-block + @ivar is idiomatic for tmpdir lifecycle in specs
+RSpec/InstanceVariable:
+  Enabled: false
+
+# Process::Status is a C-extension class that can't be instantiated directly
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+# Tests asserting both output and exit code legitimately need two expectations
+RSpec/MultipleExpectations:
+  Max: 2
+
+# The default-output integration test is naturally a few lines longer
+RSpec/ExampleLength:
+  Max: 8
+
+# Generator and CLI specs use several lets by design
+RSpec/MultipleMemoizedHelpers:
+  Max: 6
+
+# CLI orchestrator methods are inherently longer than utility methods
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/AbcSize:
+  Max: 20

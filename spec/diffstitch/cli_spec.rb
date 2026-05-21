@@ -5,6 +5,8 @@ require 'tmpdir'
 RSpec.describe Diffstitch::CLI do
   subject(:cli) { described_class.new }
 
+  let(:output_dir) { @tmpdir }
+
   def run(*args)
     cli.run(args)
   end
@@ -27,7 +29,7 @@ RSpec.describe Diffstitch::CLI do
 
   describe '#derived_output (private)' do
     it 'builds the path from base and branch names' do
-      path = cli.send(:derived_output, 'main', ['feature-a', 'feature-b'])
+      path = cli.send(:derived_output, 'main', %w[feature-a feature-b])
       expect(path).to eq(File.join('.diffstitch', 'output', 'main_vs_feature-a_feature-b'))
     end
 
@@ -73,27 +75,31 @@ RSpec.describe Diffstitch::CLI do
   end
 
   context 'with valid arguments' do
-    around { |ex| Dir.mktmpdir { |d| @dir = d; ex.run } }
+    around do |ex|
+      Dir.mktmpdir do |d|
+        @tmpdir = d
+        ex.run
+      end
+    end
 
     before do
-      allow(Diffstitch::Git).to receive(:in_repo?).and_return(true)
       allow(Diffstitch::Git).to receive(:verify_ref!)
-      allow(Diffstitch::Git).to receive(:diff).and_return('')
+      allow(Diffstitch::Git).to receive_messages(in_repo?: true, diff: '')
     end
 
     it 'prints the path to the generated index.html' do
-      expect { run('main', 'feature', '--output', @dir) }
+      expect { run('main', 'feature', '--output', output_dir) }
         .to output(/Generated:.*index\.html/).to_stdout
     end
 
     it 'writes the output files' do
-      run('main', 'feature', '--output', @dir)
-      expect(File).to exist(File.join(@dir, 'index.html'))
+      run('main', 'feature', '--output', output_dir)
+      expect(File).to exist(File.join(output_dir, 'index.html'))
     end
 
     it 'uses a custom title when --title is given' do
-      run('main', 'feature', '--output', @dir, '--title', 'My Report')
-      html = File.read(File.join(@dir, 'index.html'))
+      run('main', 'feature', '--output', output_dir, '--title', 'My Report')
+      html = File.read(File.join(output_dir, 'index.html'))
       expect(html).to include('My Report')
     end
 
