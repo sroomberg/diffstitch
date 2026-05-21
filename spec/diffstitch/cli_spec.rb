@@ -25,6 +25,23 @@ RSpec.describe Diffstitch::CLI do
     end
   end
 
+  describe '#derived_output (private)' do
+    it 'builds the path from base and branch names' do
+      path = cli.send(:derived_output, 'main', ['feature-a', 'feature-b'])
+      expect(path).to eq(File.join('.diffstitch', 'output', 'main_vs_feature-a_feature-b'))
+    end
+
+    it 'replaces forward slashes with hyphens' do
+      path = cli.send(:derived_output, 'main', ['feature/auth', 'fix/login'])
+      expect(path).to eq(File.join('.diffstitch', 'output', 'main_vs_feature-auth_fix-login'))
+    end
+
+    it 'replaces backslashes with hyphens' do
+      path = cli.send(:derived_output, 'main', ['feature\\thing'])
+      expect(path).to eq(File.join('.diffstitch', 'output', 'main_vs_feature-thing'))
+    end
+  end
+
   context 'when not inside a git repository' do
     before { allow(Diffstitch::Git).to receive(:in_repo?).and_return(false) }
 
@@ -78,6 +95,15 @@ RSpec.describe Diffstitch::CLI do
       run('main', 'feature', '--output', @dir, '--title', 'My Report')
       html = File.read(File.join(@dir, 'index.html'))
       expect(html).to include('My Report')
+    end
+
+    it 'defaults output to .diffstitch/output/<derived> when --output is omitted' do
+      Dir.mktmpdir do |tmpdir|
+        Dir.chdir(tmpdir) do
+          run('main', 'feature')
+          expect(Dir).to exist(File.join(tmpdir, '.diffstitch', 'output', 'main_vs_feature'))
+        end
+      end
     end
   end
 end

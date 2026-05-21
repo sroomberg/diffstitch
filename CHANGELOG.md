@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-05-20
+
+### Changed
+- Default output directory is now `.diffstitch/output/<base>_vs_<branches>`, derived
+  from the branch names being compared (e.g. `main_vs_feature-auth_fix-login`)
+- Slashes in branch names (e.g. `feature/auth`) are replaced with hyphens in the path
+
 ## [0.2.1] - 2026-05-20
 
 ### Fixed
@@ -34,7 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `--title` flag for a custom page title
 - `--version` / `--help` flags
 
-[Unreleased]: https://github.com/sroomberg/diffstitch/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/sroomberg/diffstitch/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/sroomberg/diffstitch/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/sroomberg/diffstitch/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/sroomberg/diffstitch/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/sroomberg/diffstitch/releases/tag/v0.1.0
