@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'optparse'
+require 'launchy'
 
 module Diffstitch
   class CLI
@@ -91,7 +92,7 @@ module Diffstitch
     end
 
     def open_in_browser(path)
-      system("open '#{path}' 2>/dev/null || xdg-open '#{path}' 2>/dev/null || start '#{path}'")
+      Launchy.open(path)
     end
   end
 end

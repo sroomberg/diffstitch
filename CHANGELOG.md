@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-05-22
+
+### Changed
+- `--open` now uses the [launchy](https://github.com/copiousfreetime/launchy) gem instead of a raw system command
+
 ## [1.0.0] - 2026-05-20
 
 ### Added
@@ -53,7 +58,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `--title` flag for a custom page title
 - `--version` / `--help` flags
 
-[Unreleased]: https://github.com/sroomberg/diffstitch/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/sroomberg/diffstitch/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/sroomberg/diffstitch/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/sroomberg/diffstitch/compare/v0.3.1...v1.0.0
 [0.3.1]: https://github.com/sroomberg/diffstitch/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/sroomberg/diffstitch/compare/v0.2.1...v0.3.0
