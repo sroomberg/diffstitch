@@ -9,8 +9,29 @@ jobs:
   test:
     uses: ./.github/workflows/ci.yml
 
-  release:
+  publish:
     needs: test
+    runs-on: ubuntu-latest
+    environment: rubygems
+    permissions:
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Build gem
+        run: gem build diffstitch.gemspec
+
+      - name: Push to RubyGems
+        uses: rubygems/release-gem@v1
+
+  release:
+    needs: publish
     runs-on: ubuntu-latest
     permissions:
       contents: write
