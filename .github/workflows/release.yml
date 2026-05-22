@@ -24,9 +24,6 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
 
-      - name: Build gem
-        run: gem build diffstitch.gemspec
-
       - name: Push to RubyGems
         uses: rubygems/release-gem@v1
 
