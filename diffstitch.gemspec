@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'A CLI tool that generates a side-by-side HTML report comparing ' \
                        'multiple git branches against a common base branch.'
   spec.license       = 'MIT'
-  spec.required_ruby_version = '>= 2.7.0'
+  spec.required_ruby_version = '>= 3.1.0'
 
   spec.homepage      = 'https://github.com/sroomberg/diffstitch'
   spec.metadata      = {
